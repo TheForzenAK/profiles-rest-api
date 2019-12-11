@@ -19,8 +19,8 @@ class UserProfileManager(BaseUserManager):
 
     def create_superuser(self, email, name, password):
         """Create and save a new superuser with given details"""
-        user = self.creat_user(email, name, password)
-        user.is_superuser = AbstractBaseUser
+        user = self.create_user(email, name, password)
+        user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
         return user
@@ -34,7 +34,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     objects = UserProfileManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FEILDS = ['name']
+    REQUIRED_FIELDS = ['name']
 
     def get_full_name(self):
          """Retrieve full name of user"""
